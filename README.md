@@ -1,9 +1,9 @@
 # B24APIDriver
-<h2>Driver for B24 REST API.</h2>
+<h2>Driver for B24 REST API</h2>
 
 Bitrix24 REST API tutorial: https://dev.1c-bitrix.ru/rest_help/
 
-Example use this driver:
+<b>Example use this driver:</b>
 
 <pre>require_once 'B24API.php';
 
