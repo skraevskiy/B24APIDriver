@@ -1,7 +1,7 @@
 # B24APIDriver
 <h2>Driver for B24 REST API</h2>
 
-Bitrix24 REST API tutorial: https://dev.1c-bitrix.ru/rest_help/
+Bitrix24 CRM REST API Tutorial: https://dev.1c-bitrix.ru/rest_help/
 
 <b>Example use this driver:</b>
 
