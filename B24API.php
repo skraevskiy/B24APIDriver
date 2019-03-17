@@ -1,7 +1,24 @@
 <?php
 /*
 	Bitrix24 REST API tutorial: https://dev.1c-bitrix.ru/rest_help/
+
+	Realized methods:
+
+	task.item.add
+	task.item.getdata
+	task.item.update
+	task.checklistitem.add
+	task.dependence.add
+	im.message.add
+	lists.element.get
+	lists.element.update
+	lists.field.get
+	lists.field.update
+	department.get
+	user.get
+	crm.lead.add
 */
+
 class B24API {
 	private static $domain = '';
 	protected static $adminId = '';
