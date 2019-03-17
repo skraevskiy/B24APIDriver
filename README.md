@@ -2,6 +2,22 @@
 
 Bitrix24 CRM REST API Tutorial: https://dev.1c-bitrix.ru/rest_help/
 
+<b>Realized methods:</b>
+
+task.item.add
+task.item.getdata
+task.item.update
+task.checklistitem.add
+task.dependence.add
+im.message.add
+lists.element.get
+lists.element.update
+lists.field.get
+lists.field.update
+department.get
+user.get
+crm.lead.add
+
 <b>Example use this driver:</b>
 
 <pre>require_once 'B24API.php';
