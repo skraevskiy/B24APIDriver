@@ -3,7 +3,7 @@
 	Bitrix24 REST API tutorial: https://dev.1c-bitrix.ru/rest_help/
 
 	Realized methods:
-	
+
 	batch
 	task.item.add
 	task.item.getdata
@@ -11,6 +11,7 @@
 	task.checklistitem.add
 	task.dependence.add
 	im.message.add
+	im.notify
 	lists.element.get
 	lists.element.update
 	lists.field.get
@@ -245,6 +246,22 @@ class B24API {
 
 		if (empty($data)) return false;
 		self::$batchData[] = 'im.message.add?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/im/im_notify.php
+	*/
+	protected function b24_imNotify($user_id, $msg, $type = 'USER') {
+		if (empty($user_id) || empty($msg)) return false;
+
+		$data = array(
+			"to" => $user_id,
+			"message" => $msg,
+			"type" => $type
+		);
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'im.notify?' . http_build_query($data);
 	}
 
 	/*
