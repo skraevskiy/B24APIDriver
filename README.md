@@ -11,6 +11,7 @@ Bitrix24 CRM REST API Tutorial: https://dev.1c-bitrix.ru/rest_help/
 * task.checklistitem.add
 * task.dependence.add
 * im.message.add
+* im.notify
 * lists.element.get
 * lists.element.update
 * lists.field.get
