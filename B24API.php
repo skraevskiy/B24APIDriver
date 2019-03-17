@@ -3,7 +3,8 @@
 	Bitrix24 REST API tutorial: https://dev.1c-bitrix.ru/rest_help/
 
 	Realized methods:
-
+	
+	batch
 	task.item.add
 	task.item.getdata
 	task.item.update
