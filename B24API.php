@@ -3,13 +3,13 @@
 	Bitrix24 REST API tutorial: https://dev.1c-bitrix.ru/rest_help/
 */
 class B24API {
-	private $domain = '';
-	protected $adminId = '';
-	private $tokenIn = '';
-	private $url = '';
+	private static $domain = '';
+	protected static $adminId = '';
+	private static $tokenIn = '';
+	private static $url = '';
 
-	protected $batchData = array();
-	protected $responseData = array();
+	protected static $batchData = array();
+	protected static $responseData = array();
 
 	protected function __construct($domain, $adminId, $tokenIn) {
 		if (empty($domain) || empty($adminId) || empty($tokenIn)) return false;
@@ -341,7 +341,12 @@ class B24API {
 			parent::__construct($domain, $adminId, $tokenIn);
 		}
 
+		function message($to, $msg) {
+			if (self::b24_imMessageAdd($to, $msg) === false) return false;
+			return self::b24_batch();
+		}
 	}
 
-	@new SomeClass($_REQUEST['domain'], $_REQUEST['adminId'], $_REQUEST['tokenIn']);
+	$someObj = @new SomeClass($_REQUEST['domain'], $_REQUEST['adminId'], $_REQUEST['tokenIn']);
+	$someObj->message(1, 'Test message!');
 */
