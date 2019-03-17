@@ -4,6 +4,7 @@ Bitrix24 CRM REST API Tutorial: https://dev.1c-bitrix.ru/rest_help/
 
 <b>Realized methods:</b>
 
+* batch
 * task.item.add
 * task.item.getdata
 * task.item.update
