@@ -11,6 +11,11 @@ class SomeClass extends B24API {
     parent::__construct($domain, $adminId, $tokenIn);
   }
 
+  function message($to, $msg) {
+    if (self::b24_imMessageAdd($to, $msg) === false) return false;
+    return self::b24_batch();
+  }
 }
 
-@new SomeClass($_REQUEST['domain'], $_REQUEST['adminId'], $_REQUEST['tokenIn']);</pre>
+$someObj = @new SomeClass($_REQUEST['domain'], $_REQUEST['adminId'], $_REQUEST['tokenIn']);
+$someObj->message(1, 'Test message!');</pre>
