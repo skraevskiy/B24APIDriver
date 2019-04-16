@@ -19,6 +19,9 @@
 	department.get
 	user.get
 	crm.lead.add
+	documentgenerator.document.list
+	task.stages.get
+	task.stages.movetask
 */
 
 class B24API {
@@ -335,6 +338,7 @@ class B24API {
 		if (!empty($parent)) $data['PARENT'] = $parent;
 		if (!empty($uf_head)) $data['UF_HEAD'] = $uf_head;
 
+		if (empty($data)) return false;
 		self::$batchData[] = 'department.get?' . http_build_query($data);
 	}
 
@@ -347,6 +351,7 @@ class B24API {
 		if (!empty($filter) && is_array($filter)) $data['filter'] = $filter;
 		if (!empty($admin_mode)) $data['admin_mode'] = $admin_mode;
 
+		if (empty($data)) return false;
 		self::$batchData[] = 'user.get?' . http_build_query($data);
 	}
 
@@ -359,7 +364,48 @@ class B24API {
 		$data['params']['REGISTER_SONET_EVENT'] = 'Y';
 		if (!empty($params) || $params != 'N') $data['params']['REGISTER_SONET_EVENT'] = 'Y';
 
+		if (empty($data)) return false;
 		self::$batchData[] = 'crm.lead.add?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/documentgenerator/documents/documentgenerator_document_list.php
+	*/
+	protected function b24_documentgeneratorDocumentList($select = ['*'], $order = [], $filter = [''], $start = 0) {
+		if (!empty($select)) $data['select'] = $select;
+		if (!empty($order)) $data['order'] = $order;
+		if (!empty($filter)) $data['filter'] = $filter;
+		if (!empty($start)) $data['start'] = $start;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'documentgenerator.document.list?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/tasks/task/kanban/task_stages_get.php
+	*/
+	protected function b24_taskStagesGet($entityId = 0, $isAdmin = true) {
+		$data['entityId'] = $entityId;
+		$data['isAdmin'] = $isAdmin;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'task.stages.get?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/tasks/task/kanban/task_stages_movetask.php
+	*/
+	protected function b24_taskStagesMovetask($id, $stageId, $before, $after) {
+		if (empty($id) || empty($stageId)) return false;
+
+		$data['id'] = $id;
+		$data['stageId'] = $stageId;
+
+		if (!empty($before)) $data['before'] = $before;
+		if (!empty($after)) $data['after'] = $after;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'task.stages.movetask?' . http_build_query($data);
 	}
 
 	private function __clone() {}
