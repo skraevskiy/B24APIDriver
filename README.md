@@ -19,6 +19,9 @@ Bitrix24 CRM REST API Tutorial: https://dev.1c-bitrix.ru/rest_help/
 * department.get
 * user.get
 * crm.lead.add
+* documentgenerator.document.list
+* task.stages.get
+* task.stages.movetask
 
 <b>Example use this driver:</b>
 
