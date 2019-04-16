@@ -22,6 +22,13 @@
 	documentgenerator.document.list
 	task.stages.get
 	task.stages.movetask
+	crm.invoice.list
+	crm.invoice.fields
+	crm.invoice.recurring.get
+	crm.invoice.get
+	crm.company.get
+	crm.requisite.list
+	crm.requisite.userfield.list
 */
 
 class B24API {
@@ -32,6 +39,7 @@ class B24API {
 
 	protected static $batchData = array();
 	protected static $responseData = array();
+	protected static $resultData = array();
 
 	protected function __construct($domain, $adminId, $tokenIn) {
 		if (empty($domain) || empty($adminId) || empty($tokenIn)) return false;
@@ -406,6 +414,79 @@ class B24API {
 
 		if (empty($data)) return false;
 		self::$batchData[] = 'task.stages.movetask?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/invoice/crm_invoice_list.php
+	*/
+	protected function b24_crmInvoiceList($order = [], $filter = [''], $select = ['*'], $start = 0) {
+		if (!empty($order)) $data['order'] = $order;
+		if (!empty($filter)) $data['filter'] = $filter;
+		if (!empty($select)) $data['select'] = $select;
+		if (!empty($start)) $data['start'] = $start;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.invoice.list?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/invoice/crm_invoice_fields.php
+	*/
+	protected function b24_crmInvoiceFields() {
+		self::$batchData[] = 'crm.invoice.fields';
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/invoice/crm_invoice_recurring_get.php
+	*/
+	protected function b24_crmInvoiceRecurringGet($id) {
+		if (!empty($id)) $data['id'] = $id;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.invoice.recurring.get?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/invoice/crm_invoice_get.php
+	*/
+	protected function b24_crmInvoiceGet($id) {
+		if (!empty($id)) $data['id'] = $id;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.invoice.get?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/company/crm_company_get.php
+	*/
+	protected function b24_crmCompanyGet($id) {
+		if (!empty($id)) $data['id'] = $id;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.company.get?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/requisite/methods/crm_requisite_list.php
+	*/
+	protected function b24_crmRequisiteList($order = [], $filter = [''], $select = ['*']) {
+		if (!empty($order)) $data['order'] = $order;
+		if (!empty($filter)) $data['filter'] = $filter;
+		if (!empty($select)) $data['select'] = $select;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.requisite.list?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/requisite/methods/crm_requisite_userfield_list.php
+	*/
+	protected function b24_crmRequisiteUserfieldList($order = [], $filter = ['']) {
+		if (!empty($order)) $data['order'] = $order;
+		if (!empty($filter)) $data['filter'] = $filter;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.requisite.userfield.list?' . http_build_query($data);
 	}
 
 	private function __clone() {}
