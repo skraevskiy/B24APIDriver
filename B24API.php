@@ -29,6 +29,12 @@
 	crm.company.get
 	crm.requisite.list
 	crm.requisite.userfield.list
+	crm.documentgenerator.document.list
+	crm.company.userfield.update
+	crm.documentgenerator.document.getfields
+	crm.company.userfield.get
+	crm.company.update
+	crm.documentgenerator.template.get
 */
 
 class B24API {
@@ -379,14 +385,27 @@ class B24API {
 	/*
 		https://dev.1c-bitrix.ru/rest_help/documentgenerator/documents/documentgenerator_document_list.php
 	*/
-	protected function b24_documentgeneratorDocumentList($select = ['*'], $order = [], $filter = [''], $start = 0) {
+	protected function b24_documentgeneratorDocumentList($select = array('*'), $order = array(), $filter = array(), $start = 0) {
 		if (!empty($select)) $data['select'] = $select;
 		if (!empty($order)) $data['order'] = $order;
 		if (!empty($filter)) $data['filter'] = $filter;
-		if (!empty($start)) $data['start'] = $start;
+		if ($start > 0) $data['start'] = $start;
 
 		if (empty($data)) return false;
 		self::$batchData[] = 'documentgenerator.document.list?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/documentgenerator/documents/crm_documentgenerator_document_list.php
+	*/
+	protected function b24_crmDocumentgeneratorDocumentList($select = array('*'), $order = array(), $filter = array(), $start = 0) {
+		if (!empty($select)) $data['select'] = $select;
+		if (!empty($order)) $data['order'] = $order;
+		if (!empty($filter)) $data['filter'] = $filter;
+		if ($start > 0) $data['start'] = $start;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.documentgenerator.document.list?' . http_build_query($data);
 	}
 
 	/*
@@ -419,11 +438,11 @@ class B24API {
 	/*
 		https://dev.1c-bitrix.ru/rest_help/crm/invoice/crm_invoice_list.php
 	*/
-	protected function b24_crmInvoiceList($order = [], $filter = [''], $select = ['*'], $start = 0) {
+	protected function b24_crmInvoiceList($order = array(), $filter = array(), $select = array('*'), $start = 0) {
 		if (!empty($order)) $data['order'] = $order;
 		if (!empty($filter)) $data['filter'] = $filter;
 		if (!empty($select)) $data['select'] = $select;
-		if (!empty($start)) $data['start'] = $start;
+		if ($start > 0) $data['start'] = $start;
 
 		if (empty($data)) return false;
 		self::$batchData[] = 'crm.invoice.list?' . http_build_query($data);
@@ -487,6 +506,60 @@ class B24API {
 
 		if (empty($data)) return false;
 		self::$batchData[] = 'crm.requisite.userfield.list?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/company/crm_company_userfield_update.php
+	*/
+	protected function b24_crmCompanyUserfieldUpdate($id, $fields = array()) {
+		if (!empty($id)) $data['id'] = $id;
+		if (!empty($fields)) $data['fields'] = $fields;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.company.userfield.update?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/company/crm_company_userfield_get.php
+	*/
+	protected function b24_crmCompanyUserfieldGet($id) {
+		if (!empty($id)) $data['id'] = $id;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.company.userfield.get?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/company/crm_company_update.php
+	*/
+	protected function b24_crmCompanyUpdate($id, $fields = array(), $params = array()) {
+		if (!empty($id)) $data['id'] = $id;
+		if (!empty($fields)) $data['fields'] = $fields;
+		if (!empty($params)) $data['params'] = $params;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.company.update?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/documentgenerator/tempates/crm_documentgenerator_template_get.php
+	*/
+	protected function b24_crmDocumentgeneratorTemplateGet($id) {
+		if (!empty($id)) $data['id'] = $id;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.documentgenerator.template.get?' . http_build_query($data);
+	}
+
+	/*
+		https://dev.1c-bitrix.ru/rest_help/crm/documentgenerator/documents/crm_documentgenerator_document_getfields.php
+	*/
+	protected function b24_crmDocumentgeneratorDocumentGetfields($id, $values = array()) {
+		if (!empty($id)) $data['id'] = $id;
+		if (!empty($values)) $data['values'] = $values;
+
+		if (empty($data)) return false;
+		self::$batchData[] = 'crm.documentgenerator.document.getfields?' . http_build_query($data);
 	}
 
 	private function __clone() {}
